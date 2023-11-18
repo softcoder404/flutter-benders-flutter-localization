@@ -23,7 +23,7 @@ class LoginScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                'Welcome to Tendarly',
+                'Welcome to l10n App',
                 style: AppTextStyle.headingMedium.copyWith(
                   color: AppColors.contentPrimary,
                 ),
