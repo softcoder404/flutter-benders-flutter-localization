@@ -1,4 +1,8 @@
+import 'package:app_l10n/bloc/local/locale_cubit.dart';
+import 'package:app_l10n/bloc/local/supported_locale.dart';
+import 'package:app_l10n/l10n/app_l10n_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../components/buttons/primary_button.dart';
 import '../components/forms/app_text_field.dart';
@@ -11,6 +15,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = Appl10nLocalizations.of(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false, // this is new
       backgroundColor: Colors.white,
@@ -23,26 +29,27 @@ class LoginScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             children: [
               Text(
-                'Welcome to l10n App',
+                l10n.loginWelcomeTitle,
                 style: AppTextStyle.headingMedium.copyWith(
                   color: AppColors.contentPrimary,
                 ),
               ),
               VSpace.tiny,
               Text(
-                'Please provide a valid auth credential to login.',
+                l10n.loginWelcomeSubTitle,
                 style: AppTextStyle.bodyMedium
                     .copyWith(color: AppColors.contentSecondary),
               ),
               VSpace.large,
-              const AppTextField(
-                title: 'Email Adress',
+              AppTextField(
+                title: l10n.loginEmailTitle,
+                hintText: l10n.loginEmailHint,
                 keyboardType: TextInputType.emailAddress,
-                errorMessage: 'Invalid email address',
               ),
               VSpace.medium,
-              const AppTextField(
-                  title: 'Password',
+              AppTextField(
+                  title: l10n.loginPasswordTitle,
+                  hintText: l10n.loginPasswordHint,
                   keyboardType: TextInputType.visiblePassword),
               VSpace.small,
               Align(
@@ -50,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                 child: InkWell(
                   onTap: () {},
                   child: Text(
-                    'Forgot Password?',
+                    l10n.loginForgotPasswordTitle,
                     style: AppTextStyle.labelMedium
                         .copyWith(color: AppColors.contentSecondary),
                   ),
@@ -58,16 +65,80 @@ class LoginScreen extends StatelessWidget {
               ),
               const Spacer(),
               PrimaryButton(
+                disabled: false,
                 onTap: () {
                   FocusScope.of(context).unfocus();
                 },
-                title: 'Login',
+                title: l10n.loginButtonTitle,
               ),
-              VSpace.large,
+              VSpace.massive,
+              Text(
+                l10n.loginChangeLangTitle,
+                style: AppTextStyle.labelMedium,
+              ),
+              VSpace.small,
+              VSpace.small,
+              BlocBuilder<LocaleCubit, LocaleState>(
+                //rebuild only when appLocale value changes
+                buildWhen: (previous, current) =>
+                    previous.appLocale != current.appLocale,
+                builder: (context, state) {
+                  return Column(
+                    children: supportedLocale
+                        .map(
+                          (appLocale) => Padding(
+                            padding: const EdgeInsets.only(bottom: 12.0),
+                            child: CustomCheckBox(
+                              label: appLocale.name,
+                              checked:
+                                  state.appLocale.locale == appLocale.locale,
+                              onTap: () => context
+                                  .read<LocaleCubit>()
+                                  .changeAppLocale(appLocale),
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  );
+                },
+              )
             ],
           ),
         ),
       )),
+    );
+  }
+}
+
+class CustomCheckBox extends StatelessWidget {
+  const CustomCheckBox({
+    super.key,
+    this.label,
+    this.checked = false,
+    this.onTap,
+  });
+  final String? label;
+  final bool checked;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Row(
+        children: [
+          Text(
+            label ?? 'Title',
+            style: AppTextStyle.bodySmall,
+          ),
+          HSpace.tiny,
+          if (checked)
+            const Icon(
+              Icons.check_box,
+              size: 20,
+              color: AppColors.systemPositive,
+            )
+        ],
+      ),
     );
   }
 }

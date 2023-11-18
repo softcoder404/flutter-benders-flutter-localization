@@ -1,0 +1,11 @@
+{
+   "loginWelcomeTitle": "Welcome to l10n App",
+   "loginWelcomeSubTitle": "Please provide a valid auth credential to login.",
+   "loginEmailTitle": "Email Address",
+   "loginEmailHint": "Enter your email address", 
+   "loginPasswordTitle": "Password Address",
+   "loginPasswordHint": "Enter your password",
+   "loginForgotPasswordTitle": "Forgot Password?",
+   "loginChangeLangTitle": "Change Language",
+   "loginButtonTitle": "Login"
+}

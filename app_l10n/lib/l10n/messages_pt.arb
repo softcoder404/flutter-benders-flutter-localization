@@ -1,0 +1,11 @@
+{
+    "loginWelcomeTitle": "Bem-vindo ao aplicativo l10n",
+    "loginWelcomeSubTitle": "Forneça uma credencial de autenticação válida para fazer login.",
+    "loginEmailTitle": "Endereço de email",
+    "loginEmailHint": "Insira o seu endereço de email", 
+    "loginPasswordTitle": "Endereço de senha",
+    "loginPasswordHint": "Coloque sua senha",
+    "loginForgotPasswordTitle": "Esqueceu sua senha?",
+    "loginChangeLangTitle": "Mudar idioma",
+    "loginButtonTitle": "Conecte-se"
+}
