@@ -34,3 +34,6 @@ NB: Internationalization is also referred to as i18n and Localization is referre
 ## Step by Step Guide
 
 - clone this repo and checkout the starter_branch
+- Add the requires package needed
+  flutter pub add flutter_localizations --sdk=flutter
+  flutter pub add intl:any
